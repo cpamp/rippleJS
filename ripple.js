@@ -55,9 +55,8 @@ window.addEventListener('load', function () {
     var dataFillAttr = dataAttr + fillAttr;
     function getFill(target) {
         var fill = false;
-        if (target.hasAttribute(fillAttr) || target.hasAttribute(dataFillAttr)) {
-            fill = true;
-        } else if (target.parentElement.hasAttribute(fillAttr) || target.parentElement.hasAttribute(dataFillAttr)) {
+        if (target.hasAttribute(fillAttr) || target.hasAttribute(dataFillAttr) || 
+            target.parentElement.hasAttribute(fillAttr) || target.parentElement.hasAttribute(dataFillAttr)) {
             fill = true;
         }
         return fill;
@@ -67,7 +66,7 @@ window.addEventListener('load', function () {
         var holder = at.target;
         var cl = holder.classList;
         if (!cl.contains('rippleJS')) {
-            if (holder.hasAttribute('rippleJS')){
+            if (holder.hasAttribute('rippleJS') || holder.hasAttribute(dataAttr + 'rippleJS')){
                 if (holder.querySelectorAll('.rippleJS').length > 1) {
                     return false;  // ignore
                 } else {
