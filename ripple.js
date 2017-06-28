@@ -26,6 +26,11 @@ window.addEventListener('load', function () {
 
     var dataAttr = "data-";
 
+    function hasParam(target, param) {
+        return target.hasAttribute(param) || target.hasAttribute(dataAttr + param) ||
+            target.parentElement.hasAttribute(param) || target.parentElement.hasAttribute(dataAttr + param);
+    }
+
     function getParam(target, param) {
         return target.getAttribute(param) || target.getAttribute(dataAttr + param) ||
             target.parentElement.getAttribute(param) || target.parentElement.getAttribute(dataAttr + param);
@@ -55,8 +60,7 @@ window.addEventListener('load', function () {
     var dataFillAttr = dataAttr + fillAttr;
     function getFill(target) {
         var fill = false;
-        if (target.hasAttribute(fillAttr) || target.hasAttribute(dataFillAttr) || 
-            target.parentElement.hasAttribute(fillAttr) || target.parentElement.hasAttribute(dataFillAttr)) {
+        if (hasParam(target, fillAttr)) {
             fill = true;
         }
         return fill;
@@ -66,7 +70,7 @@ window.addEventListener('load', function () {
         var holder = at.target;
         var cl = holder.classList;
         if (!cl.contains('rippleJS')) {
-            if (holder.hasAttribute('rippleJS') || holder.hasAttribute(dataAttr + 'rippleJS')){
+            if (hasParam(holder, 'rippleJS')){
                 if (holder.querySelectorAll('.rippleJS').length > 1) {
                     return false;  // ignore
                 } else {
