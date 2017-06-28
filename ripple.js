@@ -26,29 +26,22 @@ window.addEventListener('load', function () {
 
     var dataAttr = "data-";
 
+    function getParam(target, param) {
+        return target.getAttribute(param) || target.getAttribute(dataAttr + param) ||
+            target.parentElement.getAttribute(param) || target.parentElement.getAttribute(dataAttr + param);
+    }
+
     // Color support
     var colorAttr = 'rippleJS-color';
-    var dataColorAttr = dataAttr + colorAttr;
     function getColor(target) {
-        var color = void 0;
-        if (target.hasAttribute(colorAttr) || target.hasAttribute(dataColorAttr)) {
-            color = target.getAttribute(colorAttr) || target.getAttribute(dataColorAttr);
-        } else if (target.parentElement.hasAttribute(colorAttr) || target.parentElement.hasAttribute(dataColorAttr)) {
-            color = target.parentElement.getAttribute(colorAttr) || target.parentElement.getAttribute(dataColorAttr);
-        }
+        var color = getParam(target, colorAttr);
         return color;
     }
 
     // Duration support
     var durAttr = 'rippleJS-duration';
-    var dataDurAttr = dataAttr + durAttr;
     function getDuration(target) {
-        var duration = void 0;
-        if (target.hasAttribute(durAttr) || target.hasAttribute(dataDurAttr)) {
-            duration = target.getAttribute(durAttr) || target.getAttribute(dataDurAttr);
-        } else if (target.parentElement.hasAttribute(durAttr) || target.parentElement.hasAttribute(dataDurAttr)) {
-            duration = target.parentElement.getAttribute(durAttr) || target.parentElement.getAttribute(dataDurAttr);
-        }
+        var duration = getParam(target, durAttr);
         var style = void 0;
         if (duration) {
             style = '-webkit-transition: -webkit-transform ' + duration + ' ease-out, opacity 0.4s ease-out;' +
